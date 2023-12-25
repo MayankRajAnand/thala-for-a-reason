@@ -39,6 +39,14 @@ export default function Home() {
   const [inputVal, setInputVal] = useState("");
 
   const handleClick = async () => {
+    if (isPlaying) {
+      audio.pause();
+    } else {
+      audio.play();
+    }
+    setIsPlaying(!isPlaying);
+    var randomNumber1 = Math.floor(Math.random() * 7);
+    setImage(imageSet[randomNumber1]);
     const APIBody = {
       model: "text-davinci-003",
       prompt: `Relate the word ${inputVal}  to  7 and give the logic within 70words`,
@@ -71,26 +79,16 @@ export default function Home() {
           "OpenAI API Not working, But expect here a THALA logic for relating the word to number 7"
         );
       });
-
-    var randomNumber1 = Math.floor(Math.random() * 7);
-    setImage(imageSet[randomNumber1]);
-
-    if (isPlaying) {
-      audio.pause();
-    } else {
-      audio.play();
-    }
-    setIsPlaying(!isPlaying);
   };
 
   return (
     <div className="bg-gray-200 w-screen h-screen flex justify-center items-center">
-      <div className="h-[60%] w-[65%] md:h-[70%] md:w-[45%] lg:h-[70%] lg:w-[35%] bg-white p-12 rounded-3xl border border-red-200 flex-row justify-center space-y-16">
+      <div className="h-[70%] w-[85%] md:h-[70%] md:w-[45%] lg:h-[70%] lg:w-[35%] bg-white p-12 rounded-3xl border border-red-200 flex-row justify-center space-y-16">
         <h1 className="text-center font-bold text-4xl">
           Thala Review System 🙇‍♂️
         </h1>
         <div className="flex items-center space-x-5 md:space-x-10">
-          <div className="relative w-full h-10">
+          <div className="relative w-[100%] md:w-full h-10">
             <form>
               <input
                 className="peer w-full bg-transparent text-blue-gray-700 font-sans font-normal outline outline-black focus:outline-0 disabled:bg-blue-gray-50 disabled:border-0 transition-all placeholder-shown:border placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 border focus:border-2 border-t-transparent focus:border-t-transparent text-sm px-3 py-2.5 rounded-[7px] border-blue-gray-200 focus:border-gray-900"
