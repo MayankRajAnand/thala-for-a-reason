@@ -129,9 +129,10 @@ export default function Home() {
                 <Image
                   src={image}
                   width={300}
-                  height={300}
+                  height={200}
                   alt={image}
                   className="mx-auto"
+                  style={{ height: "200px" }}
                 />
                 <p className=" p-3 m-3 rounded-lg border border-red-500 text-red-500 text-sm">
                   {ans}
