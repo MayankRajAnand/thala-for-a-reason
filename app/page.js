@@ -125,7 +125,7 @@ export default function Home() {
                   Everything Happens for a Reason & Reason is Thala
                 </DialogTitle>
               </DialogHeader>
-              <div className="mx-auto space-y-3 text-center ">
+              <div className="mx-auto space-y-3 text-center h-50">
                 <Image
                   src={image}
                   width={300}
