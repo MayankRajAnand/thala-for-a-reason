@@ -14,24 +14,28 @@ import {
 } from "@/components/ui/dialog";
 import { useState } from "react";
 
-let imageSet = [
-  "/dhoni1.png",
-  "/dhoni2.png",
-  "/dhoni3.png",
-  "/dhoni4.png",
-  "/dhoni5.png",
-  "/dhoni6.png",
-  "/dhoni7.png",
-];
-
-const OPENAI_API_KEY = "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";
+const OPENAI_API_KEY = process.env.NEXT_PUBLIC_OPENAI_API_KEY;
 
 export default function Home() {
-  const [image, setImage] = useState("/dhoni1.png");
+  const imageSet = [
+    "/dhoni1.png",
+    "/dhoni2.png",
+    "/dhoni3.png",
+    "/dhoni4.png",
+    "/dhoni5.png",
+    "/dhoni6.png",
+    "/dhoni7.png",
+  ];
 
+  const audioSet = ["/boleKoyal.mp3", "/chant.mp3", "/deva.mp3", "/pal.mp3"];
+
+  const [image, setImage] = useState("");
+
+  var randomNumber2 = Math.floor(Math.random() * 4);
   const [audio, setAudio] = useState(
-    typeof Audio !== "undefined" && new Audio("/boleKoyal.mp3")
+    typeof Audio !== "undefined" && new Audio(audioSet[randomNumber2])
   );
+
   const [isPlaying, setIsPlaying] = useState(false);
 
   const [ans, setAns] = useState("Loading...");
@@ -47,11 +51,12 @@ export default function Home() {
     setIsPlaying(!isPlaying);
     var randomNumber1 = Math.floor(Math.random() * 7);
     setImage(imageSet[randomNumber1]);
+
     const APIBody = {
       model: "text-davinci-003",
-      prompt: `Relate the word ${inputVal}  to  7 and give the logic within 70words`,
+      prompt: `Relate the word ${inputVal}  to  7 and give the logic within 70 words`,
       temperature: 0,
-      max_tokens: 60,
+      max_tokens: 50,
       top_p: 1.0,
       frequency_penalty: 0.0,
       presence_penalty: 0.0,
@@ -76,8 +81,9 @@ export default function Home() {
       })
       .catch(() => {
         setAns(
-          "OpenAI API Not working, But expect here a THALA logic for relating the word to number 7"
+          `OpenAI API Not working, But expect here a THALA logic for relating the Input You entered : "${inputVal}" to  the number 7`
         );
+        setInputVal("");
       });
   };
 
@@ -119,8 +125,14 @@ export default function Home() {
                   Everything Happens for a Reason & Reason is Thala
                 </DialogTitle>
               </DialogHeader>
-              <div className="mx-auto space-y-3 text-center">
-                <Image src={image} width={300} height={300} alt={image} />
+              <div className="mx-auto space-y-3 text-center ">
+                <Image
+                  src={image}
+                  width={300}
+                  height={300}
+                  alt={image}
+                  className="mx-auto"
+                />
                 <p className=" p-3 m-3 rounded-lg border border-red-500 text-red-500 text-sm">
                   {ans}
                 </p>
